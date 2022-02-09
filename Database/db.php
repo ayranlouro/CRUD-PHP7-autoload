@@ -50,8 +50,23 @@ class Database
 
         $query = 'INSERT INTO ' . $this->table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $bind) . ')';
 
-        $this->execute($query,array_values($values));
+        $this->execute($query, array_values($values));
 
         return $this->connection->lastInsertId();
+    }
+
+    public function select($where = null, $order = null, $limit = null)
+    {
+        $where = strlen($where) ? 'WHERE ' . $where : '';
+        $order = strlen($order) ? 'ORDER BY ' . $order : '';
+        $limit = strlen($limit) ? 'LIMIT ' . $limit : '';
+
+        // $query = 'SELECT ' . $fields . ' FROM ' . $this->table . ' ' . $where . ' ' . $order . ' ' . $limit;
+
+        // $query = 'SELECT * FROM ' . $this->table . ' ' . $where . ' ' . $order . ' ' . $limit;
+
+        $query = "SELECT * FROM jobs";
+
+        return $this->execute($query);
     }
 }

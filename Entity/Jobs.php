@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-include __DIR__ . '/Database/db.php';
+// include_once __DIR__ . '/Database/db.php';
 
 use \App\Database\Database;
+use \PDO;
 
 class Jobs
 {
@@ -27,6 +28,14 @@ class Jobs
             'date' => $this->date
         ]);
 
-        echo "<pre>"; print_r($this); echo "</pre>"; exit;
+        return true;
+        // echo "<pre>"; print_r($this); echo "</pre>"; exit;
+    }
+
+    public static function getJobs($where = null, $order = null, $limit = null)
+    {       
+        // $obj = new Database('jobs');
+        // return $obj;
+        return (new Database('jobs'))->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 }

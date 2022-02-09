@@ -10,6 +10,18 @@ use \App\Entity\Jobs;
 
 use \App\Database\Database;
 
+if(!isset($_GET['id']) or !is_numeric($_GET['id'])){
+    header('location: index.php?status=error');
+    exit;
+}else{
+    header('location: index.php?edit=ok');
+    exit;
+}
+
+$obj = Jobs::getJobs($_GET['id']);
+
+echo "<pre>"; print_r($obj); echo "</pre>"; exit;
+
 if (isset($_POST['title'], $_POST['description'], $_POST['status'])) {
     $newJob = new Jobs;
     $newJob->title = $_POST['title'];
